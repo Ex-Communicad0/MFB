@@ -13,10 +13,11 @@ Filesize limit: 1500 MB
 Daily limit: UNLIMITED
 Price 🌎: ₹ 0 / 30 Days
 FEATURES:
-👉 <a href="https://t.me/SpEcHlDe/608">All Supported Video Formats of https://rg3.github.io/youtube-dl/supportedsites.html, except HLS videos!</a>
-👉 <a href="https://t.me/SpEcHlDe/660">Get a Telegram sticker as a Telegram downloadable media</a>
-👉 <a href="https://t.me/SpEcHlDe/609">Upload as file from any HTTP link, with custom thumbnail support</a>
-👉 <a href="https://t.me/SpEcHlDe/611">Get Low Speed Direct Download Link of any Telegram file</a>
+👉 All Supported Video Formats of https://rg3.github.io/youtube-dl/supportedsites.html, except HLS videos!
+👉 Get a Telegram sticker as a Telegram downloadable media.
+👉 Upload as file from any HTTP link, with custom thumbnail support.
+👉 Get Low Speed Direct Download Link of any Telegram file.
+
 ---@MyFilmBox----"""
 
     FORMAT_SELECTION = "Select the desired format: <a href='{}'>file size might be approximate</a> \nIf you want to set custom thumbnail, send photo before or quickly after tapping on any of the below buttons.\nYou can use /deletethumbnail to delete the auto-generated thumbnail."
