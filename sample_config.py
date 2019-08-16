@@ -10,7 +10,7 @@ class Config(object):
     API_HASH = os.environ.get("API_HASH")
     # Get these values from my.telegram.org
     # Array to store users who are authorized to use the bot
-    AUTH_USERS = os.environ.get("AUTH_USERS", "")
+    AUTH_USERS = set(str(x) for x in os.environ.get("AUTH_USERS", "").split())
     # reg: Procedures
     UTUBE_BOT_USERS = AUTH_USERS
     SUPER_DLBOT_USERS = AUTH_USERS
