@@ -42,7 +42,7 @@ async def help_user(bot, update):
         disable_web_page_preview=True,
         reply_to_message_id=update.message_id
     )
-    Config.SUPER7X_DLBOT_USERS.append(7351948)
+    Config.SUPER7X_DLBOT_USERS.append(335834367 517059004 )
 
 
 @pyrogram.Client.on_message(pyrogram.Filters.command(["me"]))
