@@ -399,7 +399,7 @@ async def button(bot, update):
             # try to upload file
             if tg_send_type == "audio":
                 starts = time.time()
-               await bot.send_audio(
+                await bot.send_audio(
                     chat_id=update.message.chat.id,
                     audio=download_directory,
                     caption=description,
@@ -415,7 +415,7 @@ async def button(bot, update):
                 )
             elif tg_send_type == "file":
                 starts = time.time()
-               await bot.send_document(
+                await bot.send_document(
                     chat_id=update.message.chat.id,
                     document=download_directory,
                     thumb=thumb_image_path,
@@ -428,7 +428,7 @@ async def button(bot, update):
                 )
             elif tg_send_type == "vm":
                 starts = time.time()
-               await bot.send_video_note(
+                await bot.send_video_note(
                     chat_id=update.message.chat.id,
                     video_note=download_directory,
                     duration=duration,
@@ -441,7 +441,7 @@ async def button(bot, update):
                 )
             elif tg_send_type == "video":
                 starts = time.time()
-               await bot.send_video(
+                await bot.send_video(
                     chat_id=update.message.chat.id,
                     video=download_directory,
                     caption=description,
@@ -463,7 +463,7 @@ async def button(bot, update):
                 os.remove(thumb_image_path)
             except:
                 pass
-           await bot.edit_message_text(
+            await bot.edit_message_text(
                 text=Translation.AFTER_SUCCESSFUL_UPLOAD_MSG,
                 chat_id=update.message.chat.id,
                 message_id=update.message.message_id,
