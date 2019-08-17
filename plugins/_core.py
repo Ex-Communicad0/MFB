@@ -454,7 +454,7 @@ async def button(bot, update):
                     reply_to_message_id=update.message.reply_to_message.message_id,
                     progress=progress_for_pyrogram,
                     progress_args=(
-                        Translation.UPLOAD_START, update.message.message_id, update.message.chat.id, startsd)
+                        Translation.UPLOAD_START, update.message.message_id, update.message.chat.id, starts)
                 )
             else:
                 logger.info("Did this happen? :\\")
