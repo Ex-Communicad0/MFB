@@ -288,7 +288,7 @@ async def button(bot, update):
             text=Translation.NOYES_URL,
             message_id=update.message.message_id
         )
-      return
+       return
     await bot.edit_message_text(
         text=Translation.DOWNLOAD_START,
         chat_id=update.message.chat.id,
@@ -303,7 +303,7 @@ async def button(bot, update):
             text=Translation.NOT_AUTH_USER_TEXT,
             message_id=update.message.message_id
         )
-      return
+       return
     download_directory = Config.DOWNLOAD_LOCATION + "/" + custom_file_name + "." + youtube_dl_ext + ""
     command_to_exec = []
     if tg_send_type == "audio":
