@@ -216,7 +216,7 @@ def echo(bot, update):
                 update.message_id,
                 update.chat.id
             )
-            await bot.send_message(
+             bot.send_message(
                 chat_id=update.chat.id,
                 text=Translation.FORMAT_SELECTION.format(thumbnail),
                 reply_markup=reply_markup,
@@ -224,7 +224,7 @@ def echo(bot, update):
                 reply_to_message_id=update.message_id
             )
     else:
-       bot.send_message(
+      await bot.send_message(
             chat_id=update.chat.id,
             text=Translation.INVALID_UPLOAD_BOT_URL_FORMAT,
             reply_to_message_id=update.message_id
