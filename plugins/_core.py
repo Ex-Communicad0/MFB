@@ -340,7 +340,7 @@ async def button(bot, update):
             command_to_exec, stderr=subprocess.STDOUT)
     except subprocess.CalledProcessError as exc:
         logger.info("Status : FAIL", exc.returncode, exc.output)
-       await bot.edit_message_text(
+        await bot.edit_message_text(
             chat_id=update.message.chat.id,
             message_id=update.message.message_id,
             text=exc.output.decode("UTF-8")
@@ -348,7 +348,7 @@ async def button(bot, update):
     else:
         # logger.info(t_response)
         os.remove(save_ytdl_json_path)
-       await bot.edit_message_text(
+        await bot.edit_message_text(
             text=Translation.UPLOAD_START,
             chat_id=update.message.chat.id,
             message_id=update.message.message_id
