@@ -47,7 +47,7 @@ def echo(bot, update):
     # )
     logger.info(update.from_user)
     if str(update.from_user.id) in Config.BANNED_USERS:
-        bot.send_message(
+        await bot.send_message(
             chat_id=update.chat.id,
             text=Translation.ABUSIVE_USERS,
             reply_to_message_id=update.message_id,
@@ -96,7 +96,7 @@ def echo(bot, update):
             # https://github.com/rg3/youtube-dl/issues/2630#issuecomment-38635239
         except subprocess.CalledProcessError as exc:
             # print("Status : FAIL", exc.returncode, exc.output)
-            bot.send_message(
+            await bot.send_message(
                 chat_id=update.chat.id,
                 text=exc.output.decode("UTF-8"),
                 reply_to_message_id=update.message_id
@@ -216,7 +216,7 @@ def echo(bot, update):
                 update.message_id,
                 update.chat.id
             )
-            bot.send_message(
+            await bot.send_message(
                 chat_id=update.chat.id,
                 text=Translation.FORMAT_SELECTION.format(thumbnail),
                 reply_markup=reply_markup,
@@ -224,7 +224,7 @@ def echo(bot, update):
                 reply_to_message_id=update.message_id
             )
     else:
-        bot.send_message(
+        await bot.send_message(
             chat_id=update.chat.id,
             text=Translation.INVALID_UPLOAD_BOT_URL_FORMAT,
             reply_to_message_id=update.message_id
