@@ -216,7 +216,7 @@ def echo(bot, update):
                 update.message_id,
                 update.chat.id
             )
-            bot.send_message(
+            await bot.send_message(
                 chat_id=update.chat.id,
                 text=Translation.FORMAT_SELECTION.format(thumbnail),
                 reply_markup=reply_markup,
