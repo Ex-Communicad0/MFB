@@ -243,7 +243,7 @@ async def button(bot, update):
             disable_web_page_preview=True,
             parse_mode="html"
         )
-      return
+       return
     cb_data = update.data.decode("UTF-8")
     if cb_data.find("|") == -1:
         return ""
