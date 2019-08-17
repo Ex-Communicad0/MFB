@@ -360,7 +360,7 @@ async def button(bot, update):
             download_directory = download_directory_one + "." + "mkv"
             file_size = os.stat(download_directory).st_size
         if file_size > Config.TG_MAX_FILE_SIZE:
-            bot.edit_message_text(
+            await bot.edit_message_text(
                 chat_id=update.message.chat.id,
                 text=Translation.RCHD_TG_API_LIMIT,
                 message_id=update.message.message_id
