@@ -22,7 +22,7 @@ else:
 from translation import Translation
 
 
-async def progress_for_pyrogram(client, current, total, ud_type, message_id, chat_id, start):
+def progress_for_pyrogram(client, current, total, ud_type, message_id, chat_id, start):
     now = time.time()
     diff = now - start
     if round(diff % 10.00) == 0 or current == total:
@@ -49,7 +49,7 @@ async def progress_for_pyrogram(client, current, total, ud_type, message_id, cha
             estimated_total_time if estimated_total_time != '' else "0 s"
         )
         try:
-            await client.edit_message_text(
+            client.edit_message_text(
                 chat_id,
                 message_id,
                 text="{}\n {}".format(
