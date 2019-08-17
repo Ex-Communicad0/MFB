@@ -8,6 +8,7 @@ logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
+import asyncio
 import json
 import math
 import os
@@ -38,7 +39,7 @@ from PIL import Image
 
 
 @pyrogram.Client.on_message(pyrogram.Filters.regex(pattern=".*http.*"))
-def echo(bot, update):
+async def echo(bot, update):
     # logger.info(update)
     TRChatBase(update.from_user.id, update.text, "/echo")
     # bot.send_chat_action(
@@ -47,7 +48,7 @@ def echo(bot, update):
     # )
     logger.info(update.from_user)
     if str(update.from_user.id) in Config.BANNED_USERS:
-        bot.send_message(
+      await bot.send_message(
             chat_id=update.chat.id,
             text=Translation.ABUSIVE_USERS,
             reply_to_message_id=update.message_id,
@@ -96,7 +97,7 @@ def echo(bot, update):
             # https://github.com/rg3/youtube-dl/issues/2630#issuecomment-38635239
         except subprocess.CalledProcessError as exc:
             # print("Status : FAIL", exc.returncode, exc.output)
-            bot.send_message(
+            await bot.send_message(
                 chat_id=update.chat.id,
                 text=exc.output.decode("UTF-8"),
                 reply_to_message_id=update.message_id
@@ -216,7 +217,7 @@ def echo(bot, update):
                 update.message_id,
                 update.chat.id
             )
-            bot.send_message(
+            await bot.send_message(
                 chat_id=update.chat.id,
                 text=Translation.FORMAT_SELECTION.format(thumbnail),
                 reply_markup=reply_markup,
@@ -224,7 +225,7 @@ def echo(bot, update):
                 reply_to_message_id=update.message_id
             )
     else:
-        bot.send_message(
+        await bot.send_message(
             chat_id=update.chat.id,
             text=Translation.INVALID_UPLOAD_BOT_URL_FORMAT,
             reply_to_message_id=update.message_id
@@ -232,10 +233,10 @@ def echo(bot, update):
 
 
 @pyrogram.Client.on_callback_query()
-def button(bot, update):
+async def button(bot, update):
     # logger.info(update)
     if str(update.from_user.id) in Config.BANNED_USERS:
-        bot.edit_message_text(
+       await bot.edit_message_text(
             chat_id=update.message.chat.id,
             text=Translation.ABUSIVE_USERS,
             message_id=update.message.message_id,
@@ -255,7 +256,7 @@ def button(bot, update):
         with open(save_ytdl_json_path, "r") as f:
             response_json = json.load(f)
     except (FileNotFoundError) as e:
-        bot.delete_messages(
+       await bot.delete_messages(
             chat_id=update.message.chat.id,
             message_ids=update.message.message_id,
             revoke=True
@@ -275,20 +276,20 @@ def button(bot, update):
                 l = entity.length
                 youtube_dl_url = youtube_dl_url[o:o + l]
     if (str(update.from_user.id) not in Config.UTUBE_BOT_USERS) and (("hls" in youtube_dl_format) or ("hotstar.com" in youtube_dl_url)):
-        bot.edit_message_text(
+       await bot.edit_message_text(
             chat_id=update.message.chat.id,
             text=Translation.NOT_AUTH_USER_TEXT,
             message_id=update.message.message_id
         )
         return
     if "noyes.in" in youtube_dl_url:
-        bot.edit_message_text(
+       await bot.edit_message_text(
             chat_id=update.message.chat.id,
             text=Translation.NOYES_URL,
             message_id=update.message.message_id
         )
         return
-    bot.edit_message_text(
+    await bot.edit_message_text(
         text=Translation.DOWNLOAD_START,
         chat_id=update.message.chat.id,
         message_id=update.message.message_id
@@ -297,7 +298,7 @@ def button(bot, update):
     if "fulltitle" in response_json:
         description = response_json["fulltitle"][0:1021]
     if ("@" in custom_file_name) and (str(update.from_user.id) not in Config.UTUBE_BOT_USERS):
-        bot.edit_message_text(
+       await bot.edit_message_text(
             chat_id=update.message.chat.id,
             text=Translation.NOT_AUTH_USER_TEXT,
             message_id=update.message.message_id
@@ -339,7 +340,7 @@ def button(bot, update):
             command_to_exec, stderr=subprocess.STDOUT)
     except subprocess.CalledProcessError as exc:
         logger.info("Status : FAIL", exc.returncode, exc.output)
-        bot.edit_message_text(
+       await bot.edit_message_text(
             chat_id=update.message.chat.id,
             message_id=update.message.message_id,
             text=exc.output.decode("UTF-8")
@@ -347,7 +348,7 @@ def button(bot, update):
     else:
         # logger.info(t_response)
         os.remove(save_ytdl_json_path)
-        bot.edit_message_text(
+       await bot.edit_message_text(
             text=Translation.UPLOAD_START,
             chat_id=update.message.chat.id,
             message_id=update.message.message_id
@@ -398,7 +399,7 @@ def button(bot, update):
             # try to upload file
             if tg_send_type == "audio":
                 starts = time.time()
-                bot.send_audio(
+               await bot.send_audio(
                     chat_id=update.message.chat.id,
                     audio=download_directory,
                     caption=description,
@@ -414,7 +415,7 @@ def button(bot, update):
                 )
             elif tg_send_type == "file":
                 starts = time.time()
-                bot.send_document(
+               await bot.send_document(
                     chat_id=update.message.chat.id,
                     document=download_directory,
                     thumb=thumb_image_path,
@@ -427,7 +428,7 @@ def button(bot, update):
                 )
             elif tg_send_type == "vm":
                 starts = time.time()
-                bot.send_video_note(
+               await bot.send_video_note(
                     chat_id=update.message.chat.id,
                     video_note=download_directory,
                     duration=duration,
@@ -440,7 +441,7 @@ def button(bot, update):
                 )
             elif tg_send_type == "video":
                 starts = time.time()
-                bot.send_video(
+               await bot.send_video(
                     chat_id=update.message.chat.id,
                     video=download_directory,
                     caption=description,
@@ -453,7 +454,7 @@ def button(bot, update):
                     reply_to_message_id=update.message.reply_to_message.message_id,
                     progress=progress_for_pyrogram,
                     progress_args=(
-                        Translation.UPLOAD_START, update.message.message_id, update.message.chat.i, startsd)
+                        Translation.UPLOAD_START, update.message.message_id, update.message.chat.id, startsd)
                 )
             else:
                 logger.info("Did this happen? :\\")
@@ -462,7 +463,7 @@ def button(bot, update):
                 os.remove(thumb_image_path)
             except:
                 pass
-            bot.edit_message_text(
+           await bot.edit_message_text(
                 text=Translation.AFTER_SUCCESSFUL_UPLOAD_MSG,
                 chat_id=update.message.chat.id,
                 message_id=update.message.message_id,
